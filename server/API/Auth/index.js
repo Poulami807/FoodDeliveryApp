@@ -1,5 +1,6 @@
 //Library
 import express from 'express';
+import passport from 'passport';
 
 //Models
 import {userModel} from '../../database/user/index';
@@ -50,4 +51,35 @@ Router.post("/signin",async (req,res)=>{
         return res.status(500).json({error:error.message})
     }
 })
+
+/*
+Route    /auth/google
+Desc     Google authentication
+Params   none
+Access   Public
+Method   GET 
+*/
+
+//scope specifies the user data we want
+Router.get('/google', passport.authenticate("google",{
+    scope:[
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+    ],
+}))
+
+/*
+Route    /auth/google/redirect
+Desc     Google authentication callback route
+Params   none
+Access   Public
+Method   GET 
+*/
+Router.get('/google/redirect', passport.authenticate("google",{failureRedirect:'/'}),
+    (req,res) => {
+        return res.json(
+            {token: req.session.passport.user.token}
+        )
+    }
+)
 export default Router;

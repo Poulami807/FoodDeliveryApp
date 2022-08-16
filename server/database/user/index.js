@@ -27,7 +27,7 @@ userSchema.statics.findByEmailAndPassword = async ({password,email}) => {
   if (!doesPwdMatch) throw new Error('Password does not match');
 
   return user;
-}
+} 
 
 //sign up authentication
 userSchema.statics.findByEmailAndPhone = async ({email, phoneNumber}) => {

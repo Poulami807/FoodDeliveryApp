@@ -64,3 +64,10 @@ statics -> can be used directly with the model (predefined). Available even befo
 methods -> (pre instantiated) needs to be assigned to a var/const first. Methods can only be used only when u have started with processing the data (after creating user)
 
 pre ->predefine function in mongoose that is executed at a particular state while performing a particular transaction in mongoDB
+
+//Google authentication --> Google+ API using OAuthClient ID
+Install 2 packages: passport
+                    passport-google-oauth20
+npm i passport passport-google-oauth20
+
+sever --> config --> google.config.js
