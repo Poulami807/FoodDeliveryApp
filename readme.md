@@ -14,7 +14,7 @@ Backend:
      }
      command to run server: npm run start
 
-   nodemon: automatically restarts the server everytime you save the file
+   nodemon: automatically restarts the server every time you save the file
    npm i nodemon -D
    "scripts": {
     "dev": "nodemon --exec babel-node index"
@@ -60,5 +60,7 @@ JWT Token - object to store user data in an encrypted form
 //store all sensitive data in .env file: npm i dotenv
 
 //Statics and Methods in mongoose (functions that can be used in schema)
-statics -> can be used directly with the model (predefined)
-methods -> (pre instantiated) needs to be assigned to a var/const first
+statics -> can be used directly with the model (predefined). Available even before data not saved to db
+methods -> (pre instantiated) needs to be assigned to a var/const first. Methods can only be used only when u have started with processing the data (after creating user)
+
+pre ->predefine function in mongoose that is executed at a particular state while performing a particular transaction in mongoDB
