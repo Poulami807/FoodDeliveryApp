@@ -59,10 +59,6 @@ JWT Token - object to store user data in an encrypted form
 
 //store all sensitive data in .env file: npm i dotenv
 
-//Statics and Methods in mongoose (functions that can be used in schema)
-statics -> can be used directly with the model (predefined). Available even before data not saved to db
-methods -> (pre instantiated) needs to be assigned to a var/const first. Methods can only be used only when u have started with processing the data (after creating user)
-
 pre ->predefine function in mongoose that is executed at a particular state while performing a particular transaction in mongoDB
 
 //Google authentication --> Google+ API using OAuthClient ID
