@@ -11,7 +11,11 @@ import googleAuthConfig from './config/google.config';
 import connectDB from './database/connection';
 
 //Routes
-import Auth from './API/Auth'
+import Auth from './API/Auth';
+import Restaurant from './API/Restaurant';
+import Food from './API/Food';
+import Menu from './API/Menu';
+import Image from './API/Images';
 
 //passport configuration
 googleAuthConfig(passport)
@@ -29,6 +33,12 @@ app.get("/",(req,res)=>{
 });
 
 app.use("/auth",Auth);
+app.use("/restaurant",Restaurant);
+app.use("/food",Food);
+app.use("/menu",Menu);
+app.use("/image",Image);
+
+
 
 app.listen(4000,()=>{
 connectDB()

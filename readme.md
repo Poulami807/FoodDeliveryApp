@@ -70,4 +70,18 @@ Install 2 packages: passport
                     passport-google-oauth20
 npm i passport passport-google-oauth20
 
-sever --> config --> google.config.js
+sever --> config --> google.config.
+
+RestaurantAPI -->
+http://localhost:4000/restaurant/?city=kolkata
+after ?->query parameter
+
+location API -> to get user's current location
+
+//AWS S3
+IAM -> Create new user for accessing S3 bucket
+Install 2 pacakges:
+npm i aws-sdk multer
+aws-sdk: for accessing aws services
+multer:for file upload;temporarily stores the file inside server storage after making post requires before the file is uploaded to s3.
+
