@@ -61,6 +61,10 @@ JWT Token - object to store user data in an encrypted form
 
 pre ->predefine function in mongoose that is executed at a particular state while performing a particular transaction in mongoDB
 
+//Statics and Methods in mongoose (functions that can be used in schema)
+statics -> can be used directly with the model (predefined). Available even before data not saved to db
+methods -> (pre instantiated) needs to be assigned to a var/const first. Methods can only be used only when u have started with processing the data (after creating user)
+
 //Google authentication --> Google+ API using OAuthClient ID
 Install 2 packages: passport
                     passport-google-oauth20
@@ -81,3 +85,7 @@ npm i aws-sdk multer
 aws-sdk: for accessing aws services
 multer:for file upload;temporarily stores the file inside server storage after making post requires before the file is uploaded to s3.
 
+Package for validation: npm i joi --> schema validation
+
+Private routes --> passport
+for authentication using jwt token: npm i passport-jwt

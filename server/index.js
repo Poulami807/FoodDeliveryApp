@@ -6,6 +6,7 @@ import passport from "passport";
 
 //configs
 import googleAuthConfig from './config/google.config';
+import routeConfig from "./config/route.config";
 
 //DB Connection
 import connectDB from './database/connection';
@@ -22,6 +23,7 @@ import User from './API/User';
 
 //passport configuration
 googleAuthConfig(passport)
+routeConfig(passport);
 
 const app = express();
 app.use(express.json());
