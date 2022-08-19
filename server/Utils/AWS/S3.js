@@ -1,4 +1,7 @@
 import AWS from 'aws-sdk';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 //AWS S3 BUCKET Configuration
 const s3Bucket = new AWS.S3({

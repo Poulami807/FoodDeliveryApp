@@ -16,6 +16,9 @@ import Restaurant from './API/Restaurant';
 import Food from './API/Food';
 import Menu from './API/Menu';
 import Image from './API/Images';
+import Order from './API/Orders';
+import Review from './API/Reviews';
+import User from './API/User';
 
 //passport configuration
 googleAuthConfig(passport)
@@ -37,8 +40,9 @@ app.use("/restaurant",Restaurant);
 app.use("/food",Food);
 app.use("/menu",Menu);
 app.use("/image",Image);
-
-
+app.use("/order",Order);
+app.use("/review",Review);
+app.use("/user",User);
 
 app.listen(4000,()=>{
 connectDB()
