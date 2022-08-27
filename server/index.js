@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import passport from "passport";
+import session from "express-session";
 
 //configs
 import googleAuthConfig from './config/google.config';
@@ -20,6 +21,7 @@ import Image from './API/Images';
 import Order from './API/Orders';
 import Review from './API/Reviews';
 import User from './API/User';
+import Payment from './API/Payment';
 
 //passport configuration
 googleAuthConfig(passport)
@@ -30,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(cors());
 app.use(helmet());
+app.use(session({ secret: 'food app' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -45,6 +48,7 @@ app.use("/image",Image);
 app.use("/order",Order);
 app.use("/review",Review);
 app.use("/user",User);
+app.use("/payment",Payment);
 
 app.listen(4000,()=>{
 connectDB()

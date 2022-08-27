@@ -1,5 +1,7 @@
 //Libraries
 import express from 'express';
+import passport from "passport";
+
 
 //DB Model
 import {reviewModel} from '../../database/allModels';
@@ -25,23 +27,25 @@ Router.get('/:resid',async (req,res)=>{
 })
 
 /*
-Route    /review/new
-Desc     Add new review/rating
-Params   None
-Body     review object
-Access   Public
-Method   POST 
+Route           /review/new
+Des             Add new food review/rating
+Params          none
+BODY            review object
+Access          Private
+Method          POST
 */
-
-Router.post('/new',async (req,res)=>{
+Router.post("/new", passport.authenticate("jwt"), async (req, res) => {
     try {
-        const {newReview} = req.body
-        await reviewModel.create({...newReview});
-        return res.json({review:"Successfully created review"})
+      const { _id } = req.session.passport.user._doc;
+      const { reviewData } = req.body;
+  
+      await ReviewModel.create({ ...reviewData, user: _id });
+  
+      return res.json({ review: "Successfully Created Review." });
     } catch (error) {
-        return res.status(500).json({error:error.message})
+      return res.status(500).json({ error: error.message });
     }
-})
+  });
 
 /*
 Route    /review/delete/:_id
@@ -55,7 +59,7 @@ Router.delete('/delete/:_id',async (req,res)=>{
     try {
         const {_id} = req.params;
         await reviewModel.findByIdAndDelete(_id);
-        return res.json({review:"Successfully deletd review"})
+        return res.json({review:"Successfully deleted review"})
     } catch (error) {
         return res.status(500).json({error:error.message})
     }

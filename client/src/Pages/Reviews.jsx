@@ -3,40 +3,42 @@ import ReviewCard from "../Components/Restaurant/ReviewCard";
 import AddReviewCard from "../Components/Restaurant/Reviews/AddReviewCard";
 
 // Redux
-// import { useSelector, useDispatch } from "react-redux";
-// import { getReviews } from "../Redux/Reducer/Reviews/reviews.action";
+import { useSelector, useDispatch } from "react-redux";
+import { getReviews } from "../Redux/Reducer/Reviews/review.action";
 
 function Reviews() {
-  const [reviews, setReviews] = useState([
-    {
-      isRestaurantReview:true,
-      createdAt : "2022-08-01T12:00:00.000Z",
-      reviewText:"Delicious food,clean hygiene"
-  },
-  {
-      isRestaurantReview:true,
-      createdAt : "2022-08-01T12:00:00.000Z",
-      reviewText:"Delicious food,clean hygiene"
-  },
-  {
-      isRestaurantReview:true,
-      createdAt : "2022-08-01T12:00:00.000Z",
-      reviewText:"Delicious food,clean hygiene"
-  }
-  ]);
+  // const [reviews, setReviews] = useState([
+  //   {
+  //     isRestaurantReview:true,
+  //     createdAt : "2022-08-01T12:00:00.000Z",
+  //     reviewText:"Delicious food,clean hygiene"
+  // },
+  // {
+  //     isRestaurantReview:true,
+  //     createdAt : "2022-08-01T12:00:00.000Z",
+  //     reviewText:"Delicious food,clean hygiene"
+  // },
+  // {
+  //     isRestaurantReview:true,
+  //     createdAt : "2022-08-01T12:00:00.000Z",
+  //     reviewText:"Delicious food,clean hygiene"
+  // }
+  // ]);
 
-//   const reduxState = useSelector(
-//     (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
-//   );
+  const [reviews, setReviews] = useState([])
 
-//   const dispatch = useDispatch();
+  const reduxState = useSelector(
+    (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
+  );
 
-//   useEffect(() => {
-//     reduxState &&
-//       dispatch(getReviews(reduxState?._id)).then((data) => {
-//         setReviews(data.payload.reviews);
-//       });
-//   }, [reduxState]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    reduxState &&
+      dispatch(getReviews(reduxState?._id)).then((data) => {
+        setReviews(data.payload.reviews);
+      });
+  }, [reduxState]);
 
   return (
     <>

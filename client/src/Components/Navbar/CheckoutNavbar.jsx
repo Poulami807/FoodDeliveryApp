@@ -3,10 +3,10 @@ import { FaUserAlt } from "react-icons/fa";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 // Redux
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function CheckoutNavbar() {
-//   const reduxState = useSelector((globalStore) => globalStore.user.user);
+  const reduxState = useSelector((globalStore) => globalStore.user.user);
   return (
     <>
       <nav className="px-4 py-2 flex bg-white shadow-md lg-shadow-none w-full items-center">
@@ -26,11 +26,11 @@ function CheckoutNavbar() {
               <div className="border p-1 border-gray-300 text-main-300 w-12 h-12 rounded-full">
                 <img
                   src="https://cdn1.iconfinder.com/data/icons/avatars-1-5/136/87-512.png"
-                  alt="Poulami"
+                  alt={reduxState?.user?.userName}
                   className="w-full h-full rounded-full object-center object-cover"
                 />
               </div>
-              Poulami Ganguly
+              {reduxState?.user?.userName}
             </div>
           </div>
         </div>

@@ -5,12 +5,12 @@ import { Fragment, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 // Redux
-// import { useDispatch } from "react-redux";
-// import { signIn } from "../../Redux/Reducer/Auth/auth.action";
-// import { getMySelf } from "../../Redux/Reducer/User/user.action";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../Redux/Reducer/Auth/auth.action";
+import { getMySelf } from "../../Redux/Reducer/User/user.action";
 
 export default function SignIn({ isOpen, setIsOpen }) {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -29,13 +29,12 @@ export default function SignIn({ isOpen, setIsOpen }) {
       email: "",
       password: "",
     });
-    // dispatch(signIn(userData));
-
+    dispatch(signIn(userData));
     closeModal();
   };
 
-//   const googleSignIn = () =>
-//     (window.location.href = "http://localhost:4000/auth/google");
+  const googleSignIn = () =>
+    (window.location.href = "http://localhost:4000/auth/google");
 
   return (
     <>
@@ -81,6 +80,7 @@ export default function SignIn({ isOpen, setIsOpen }) {
                 ></Dialog.Title>
                 <div className="mt-2 flex flex-col gap-3 w-full">
                   <button
+                    onClick={googleSignIn}
                     className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"
                   >
                     Sign in with Google <FcGoogle />

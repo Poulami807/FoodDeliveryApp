@@ -5,11 +5,11 @@ import { Fragment, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 // Redux
-// import { useDispatch } from "react-redux";
-// import { signUp } from "../../Redux/Reducer/Auth/auth.action";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../Redux/Reducer/Auth/auth.action";
 
 export default function SignUp({ isOpen, setIsOpen }) {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -30,18 +30,18 @@ export default function SignUp({ isOpen, setIsOpen }) {
       password: "",
       fullname: "",
     });
-    // dispatch(
-    //   signUp({
-    //     email: userData.email,
-    //     password: userData.password,
-    //     fullName: userData.fullname,
-    //   })
-    // );
+    dispatch(
+      signUp({
+        email: userData.email,
+        password: userData.password,
+        fullName: userData.fullname,
+      })
+    );
     closeModal();
   };
 
-//   const googleSignUp = () =>
-//     (window.location.href = "http://localhost:4000/auth/google");
+  const googleSignUp = () =>
+    (window.location.href = "http://localhost:4000/auth/google");
 
   return (
     <>
@@ -87,6 +87,7 @@ export default function SignUp({ isOpen, setIsOpen }) {
                 ></Dialog.Title>
                 <div className="mt-2 flex flex-col gap-3 w-full">
                   <button
+                   onClick={googleSignUp}
                     className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"
                   >
                     Sign up with Google <FcGoogle />

@@ -6,15 +6,15 @@ import FoodItem from "../Components/Cart/FoodItem";
 import AddressList from "../Components/Checkout/AddressList";
 
 // redux
-// import { useSelector, useDispatch } from "react-redux";
-// import { orderPlaced } from "../Redux/Reducer/Order/order.action";
+import { useSelector, useDispatch } from "react-redux";
+import {createOrder, orderPlaced } from "../Redux/Reducer/Order/order.action";
 
 function Checkout() {
-//   const reduxStateCart = useSelector((globalStore) => globalStore.cart.cart);
-//   const reduxStateUser = useSelector(
-//     (globalStore) => globalStore.user.user.user
-//   );
-//   const dispatch = useDispatch();
+  const reduxStateCart = useSelector((globalStore) => globalStore.cart.cart);
+  const reduxStateUser = useSelector(
+    (globalStore) => globalStore.user.user.user
+  );
+  const dispatch = useDispatch();
   const [address] = useState([
     {
       name: "Home",
@@ -29,52 +29,54 @@ function Checkout() {
       address: "123 Main St, New York, NY 10001",
     },
   ]);
-  const [Foods] = useState([
-    {
-        image:"https://b.zmtcdn.com/data/dish_photos/9f9/7286523dde8c65d5e9c126b15bfe29f9.jpg",
-        name: "Chilli Paneer Gravy",
-        price: "157.50",
-        quantity: 4
-    },
-    {
-        image:"https://b.zmtcdn.com/data/dish_photos/9f9/7286523dde8c65d5e9c126b15bfe29f9.jpg",
-        name: "Chilli Paneer Gravy",
-        price: "157.50",
-        quantity: 4
-    }
-  ]);
+  // const [Foods] = useState([
+  //   {
+  //       image:"https://b.zmtcdn.com/data/dish_photos/9f9/7286523dde8c65d5e9c126b15bfe29f9.jpg",
+  //       name: "Chilli Paneer Gravy",
+  //       price: "157.50",
+  //       quantity: 4
+  //   },
+  //   {
+  //       image:"https://b.zmtcdn.com/data/dish_photos/9f9/7286523dde8c65d5e9c126b15bfe29f9.jpg",
+  //       name: "Chilli Paneer Gravy",
+  //       price: "157.50",
+  //       quantity: 4
+  //   }
+  // ]);
 
 
-//   const reduxState = useSelector((globalStore) => globalStore.cart.cart);
 
-//   const payNow = () => {
-//     let options = {
-//       key: "rzp_test_q1aD8S4CGOEb75",
-//       amount:
-//         reduxStateCart.reduce((acc, curVal) => acc + curVal.totalPrice, 0) *
-//         100,
-//       currency: "INR",
-//       name: "Zomato Clone",
-//       description: "Food Payment",
-//       image:
-//         "https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png",
-//       handler: function (data) {
-//         alert("Payment Done");
-//         // console.log(data.razorpay_payment_id);
-//         dispatch(orderPlaced(reduxStateCart, data.razorpay_payment_id));
-//       },
-//       prefill: {
-//         name: reduxStateUser.fullName,
-//         email: reduxStateUser.email,
-//       },
-//       theme: {
-//         color: "#e23744",
-//       },
-//     };
 
-//     let razorPay = new window.Razorpay(options);
-//     razorPay.open();
-//   };
+  const reduxState = useSelector((globalStore) => globalStore.cart.cart);
+
+  const payNow = () => {
+    let options = {
+      key: "rzp_test_onrRZBwSDQvpNK",
+      amount:
+        reduxStateCart.reduce((acc, curVal) => acc + curVal.totalPrice, 0) *
+        100,
+      currency: "INR",
+      name: "Yummely",
+      description: "Food Payment",
+      image:
+        "https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png",
+      handler: function (data) {
+        alert("Payment Done");
+        // console.log(data.razorpay_payment_id);
+        dispatch(orderPlaced(reduxStateCart, data.razorpay_payment_id));
+      },
+      prefill: {
+        name: reduxStateUser.fullName,
+        email: reduxStateUser.email,
+      },
+      theme: {
+        color: "#fe5f1d",
+      },
+    };
+
+    let razorPay = new window.Razorpay(options);
+    razorPay.open();
+  };
 
   return (
     <div className="my-10 flex flex-col gap-3 items-center">
@@ -90,7 +92,7 @@ function Checkout() {
             </small>
           </div>
           <div className="my-4 h-32 px-4 h-full flex flex-col gap-2 w-full md:w-3/5">
-            {Foods.map((food) => (
+            {reduxState.map((food) => (
               <FoodItem {...food} key={food._id} />
             ))}
           </div>
@@ -100,6 +102,7 @@ function Checkout() {
           </div>
         </div>
         <button
+          onClick={payNow}
           className="flex items-center gap-2 justify-center my-4 md:my-8 w-full px-4 md:w-4/5 px-0 h-14 text-white font-medium text-lg bg-main-300 rounded-lg"
         >
           Pay Securely <BsShieldLockFill />

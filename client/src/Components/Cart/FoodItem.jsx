@@ -2,22 +2,22 @@ import React from "react";
 import { BsTrashFill } from "react-icons/bs";
 
 // Redux
-// import { useDispatch } from "react-redux";
-// import {
-//   deleteCart,
-//   incQty,
-//   decQty,
-// } from "../../Redux/Reducer/Cart/cart.action";
+import { useDispatch } from "react-redux";
+import {
+  deleteCart,
+  incQty,
+  decQty,
+} from "../../Redux/Reducer/Cart/cart.action";
 
 function FoodItem(props) {
-//   const dispatch = useDispatch();
-//   const deleteFoodFromCart = () => dispatch(deleteCart(props._id));
+  const dispatch = useDispatch();
+  const deleteFoodFromCart = () => dispatch(deleteCart(props._id));
 
-//   const increment = () => dispatch(incQty(props._id));
-//   const decrement = () => {
-//     if (props.quantity === 1) return;
-//     dispatch(decQty(props._id));
-//   };
+  const increment = () => dispatch(incQty(props._id));
+  const decrement = () => {
+    if (props.quantity === 1) return;
+    dispatch(decQty(props._id));
+  };
 
   return (
     <>
@@ -28,14 +28,14 @@ function FoodItem(props) {
             <small>$ {parseInt(props.price) * parseInt(props.quantity)}</small>
             <div className="px-1 bg-main-300 text-white rounded flex items-center gap-1">
               <button
-          
+                 onClick={decrement}
                 className="p-1 bg-main-300 text-white rounded"
               >
                 -
               </button>
               <small>{props.quantity}</small>
               <button
-            
+                 onClick={increment}
                 className="p-1 bg-main-300 text-white rounded"
               >
                 +
@@ -43,7 +43,7 @@ function FoodItem(props) {
             </div>
           </div>
           <BsTrashFill
-            // onClick={deleteFoodFromCart}
+            onClick={deleteFoodFromCart}
             className="text-main-300 text-lg md:text-xl"
           />
         </div>

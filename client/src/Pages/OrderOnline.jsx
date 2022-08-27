@@ -6,70 +6,73 @@ import FoodList from "../Components/Restaurant/OrderOnline/FoodList";
 import MenuListContainer from "../Components/Restaurant/OrderOnline/MenuListContainer";
 
 // Redux
-// import { useSelector, useDispatch } from "react-redux";
-// import { getFoodList } from "../Redux/Reducer/Food/food.action";
+import { useSelector, useDispatch } from "react-redux";
+import { getFoodList } from "../Redux/Reducer/Food/food.action";
+
 function OrderOnline() {
-    // const dispatch = useDispatch();
-    // const reduxState = useSelector(
-    //   (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
-    // );
-    const [menu, setMenu] = useState([
-        {
-            name:"Recommended",
-            items:[ {
-              image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
-              name: "Penne Mushroom Sauce",
-              price: "157.50",
-              rating: 4,
-              description: ""
-              },
-              {
-                image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
-                name: "Penne Mushroom Sauce",
-                price: "157.50",
-                rating: 4,
-                description: "adafaf"
-                }]
-        },
-        {
-            name:"Combos",
-            items:[
-              {
-                image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
-                name: "Penne Mushroom Sauce",
-                price: "157.50",
-                rating: 4,
-                description: ""
-                },
-                {
-                  image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
-                  name: "Penne Mushroom Sauce",
-                  price: "157.50",
-                  rating: 4,
-                  description: ""
-                  }
-            ]
-        },
-        {
-            name:"Half and half combos",
-            items:[
-              {
-                image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
-                name: "Penne Mushroom Sauce",
-                price: "157.50",
-                rating: 4,
-                description: ""
-                },
-                {
-                  image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
-                  name: "Penne Mushroom Sauce",
-                  price: "157.50",
-                  rating: 4,
-                  description: ""
-                  }
-            ]
-        }
-    ]);
+    const dispatch = useDispatch();
+    const reduxState = useSelector(
+      (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
+    );
+    // const [menu, setMenu] = useState([
+    //     {
+    //         name:"Recommended",
+    //         items:[ {
+    //           image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
+    //           name: "Penne Mushroom Sauce",
+    //           price: "157.50",
+    //           rating: 4,
+    //           description: ""
+    //           },
+    //           {
+    //             image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
+    //             name: "Penne Mushroom Sauce",
+    //             price: "157.50",
+    //             rating: 4,
+    //             description: "adafaf"
+    //             }]
+    //     },
+    //     {
+    //         name:"Combos",
+    //         items:[
+    //           {
+    //             image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
+    //             name: "Penne Mushroom Sauce",
+    //             price: "157.50",
+    //             rating: 4,
+    //             description: ""
+    //             },
+    //             {
+    //               image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
+    //               name: "Penne Mushroom Sauce",
+    //               price: "157.50",
+    //               rating: 4,
+    //               description: ""
+    //               }
+    //         ]
+    //     },
+    //     {
+    //         name:"Half and half combos",
+    //         items:[
+    //           {
+    //             image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
+    //             name: "Penne Mushroom Sauce",
+    //             price: "157.50",
+    //             rating: 4,
+    //             description: ""
+    //             },
+    //             {
+    //               image:"https://b.zmtcdn.com/data/dish_photos/4d4/d3e855fae7aa3d6b4a3eb6ef5696d4d4.jpg",
+    //               name: "Penne Mushroom Sauce",
+    //               price: "157.50",
+    //               rating: 4,
+    //               description: ""
+    //               }
+    //         ]
+    //     }
+    // ]);
+
+    const [menu, setMenu] = useState([]);
    
     const [selected, setSelected] = useState("Recommended");
   
@@ -80,15 +83,15 @@ function OrderOnline() {
       return;
     };
   
-    // useEffect(() => {
-    //   if (reduxState) {
-    //     dispatch(getFoodList(reduxState.menu)).then((data) => {
-    //       if (data.payload.menus) {
-    //         setMenu(data.payload.menus.menus);
-    //       }
-    //     });
-    //   }
-    // }, [reduxState]);
+    useEffect(() => {
+      if (reduxState) {
+        dispatch(getFoodList(reduxState.menu)).then((data) => {
+          if (data.payload.menus) {
+            setMenu(data.payload.menus.menus);
+          }
+        });
+      }
+    }, [reduxState]);
   return (
     <>
     <div className="w-full h-screen flex">

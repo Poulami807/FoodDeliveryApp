@@ -11,57 +11,59 @@ import SimilarRestaurantCard from "../Components/Restaurant/SimilarRestaurantCar
 import ReviewCard from "../Components/Restaurant/ReviewCard";
 import MapView from "../Components/Restaurant/Mapview";
 
-// Redux
-// import { useSelector, useDispatch } from "react-redux";
-// import { getImage } from "../Redux/Reducer/Image/Image.action";
-// import { getReviews } from "../Redux/Reducer/Reviews/reviews.action";
+//Redux
+import { useSelector, useDispatch } from "react-redux";
+import { getImage } from "../Redux/Reducer/Image/image.action";
+import { getReviews } from "../Redux/Reducer/Reviews/review.action";
 
 function Overview() {
+  const [menuImage, setMenuImages] = useState([])
   const { id } = useParams();
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-const cuisines =['Chinese', 'Indian', 'Italian'];
-const averageCost =300;
+// const cuisines =['Chinese', 'Indian', 'Italian'];
+// const averageCost =300;
 
-  const [menuImage, setMenuImages] = useState([
-    'https://b.zmtcdn.com/data/menus/148/19521148/eb8280f1cc3789d82d6fb6313336fe68.jpg',
-    'https://b.zmtcdn.com/data/menus/148/19521148/355a4c54e589dcca05ac6dbd31408740.jpg'
-  ]);
-  const [Reviews, setReviews] = useState([
-    {
-        isRestaurantReview:true,
-        createdAt : "2022-08-01T12:00:00.000Z",
-        reviewText:"Delicious food,clean hygiene"
-    },
-    {
-        isRestaurantReview:true,
-        createdAt : "2022-08-01T12:00:00.000Z",
-        reviewText:"Delicious food,clean hygiene"
-    },
-    {
-        isRestaurantReview:true,
-        createdAt : "2022-08-01T12:00:00.000Z",
-        reviewText:"Delicious food,clean hygiene"
+  // const [menuImage, setMenuImages] = useState([
+  //   'https://b.zmtcdn.com/data/menus/148/19521148/eb8280f1cc3789d82d6fb6313336fe68.jpg',
+  //   'https://b.zmtcdn.com/data/menus/148/19521148/355a4c54e589dcca05ac6dbd31408740.jpg'
+  // ]);
+  // const [Reviews, setReviews] = useState([
+  //   {
+  //       isRestaurantReview:true,
+  //       createdAt : "2022-08-01T12:00:00.000Z",
+  //       reviewText:"Delicious food,clean hygiene"
+  //   },
+  //   {
+  //       isRestaurantReview:true,
+  //       createdAt : "2022-08-01T12:00:00.000Z",
+  //       reviewText:"Delicious food,clean hygiene"
+  //   },
+  //   {
+  //       isRestaurantReview:true,
+  //       createdAt : "2022-08-01T12:00:00.000Z",
+  //       reviewText:"Delicious food,clean hygiene"
+  //   }
+  // ]);
+  const [Reviews, setReviews] = useState([])
+
+  const reduxState = useSelector(
+    (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
+  );
+
+  useEffect(() => {
+    if (reduxState) {
+      dispatch(getImage(reduxState?.menuImages)).then((data) => {
+        const images = [];
+        data.payload.image.images.map(({ location }) => images.push(location));
+        setMenuImages(images);
+        console.log(images);
+      });
+      dispatch(getReviews(reduxState?._id)).then((data) => {
+        setReviews(data.payload.reviews);
+      });
     }
-  ]);
-
-//   const reduxState = useSelector(
-//     (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
-//   );
-
-//   useEffect(() => {
-//     if (reduxState) {
-//       dispatch(getImage(reduxState?.menuImages)).then((data) => {
-//         const images = [];
-//         data.payload.image.images.map(({ location }) => images.push(location));
-//         setMenuImages(images);
-//         console.log(images);
-//       });
-//       dispatch(getReviews(reduxState?._id)).then((data) => {
-//         setReviews(data.payload.reviews);
-//       });
-//     }
-//   }, [reduxState]);
+  }, [reduxState]);
 
   const ratingChanged = (newRating) => {
     console.log(newRating);
@@ -133,7 +135,7 @@ const averageCost =300;
           </div>
           <h4 className="text-lg font-medium my-4">Cuisines</h4>
           <div className="flex flex-wrap gap-2">
-            {cuisines.map((data) => (
+            {reduxState?.cuisines.map((data) => (
               <span className="border border-gray-600 text-gray-600 px-2 py-1 rounded-full">
                 {data}
               </span>
@@ -141,7 +143,7 @@ const averageCost =300;
           </div>
           <div className="my-4">
             <h4 className="text-lg font-medium">Average Cost</h4>
-            <h6>${averageCost} for one order (approx.)</h6>
+            <h6>${reduxState?.averageCost} for one order (approx.)</h6>
             <small className="text-gray-500">
               Exclusive of applicable taxes and service charges, if any
             </small>
@@ -179,10 +181,10 @@ const averageCost =300;
           </div>
           <div className="my-4 w-full md:hidden flex flex-col gap-4">
             <MapView
-              title="Burger King"
-              phno="877724649"
-              mapLocation={getLatLong("22.5977122785338, 88.37732299367077")}
-              address="118, Ground Floor, Raja Dinendra Street, Hatibagan, Kolkata"
+              title={reduxState?.name}
+              phno={reduxState?.phoneNumber}
+              mapLocation={getLatLong(reduxState?.mapLocation)}
+              address={reduxState?.address}
             />
           </div>
           <div className="mb-4 mt-8">
@@ -205,11 +207,11 @@ const averageCost =300;
           className="hidden md:flex md:w-4/12 sticky rounded-xl top-2 bg-white p-5 shadow-md flex-col gap-4"
         >
           <MapView
-             title="Burger King"
-             phno="877724649"
-             mapLocation={getLatLong("22.5977122785338, 88.37732299367077")}
-             address="118, Ground Floor, Raja Dinendra Street, Hatibagan, Kolkata"
-          />
+              title={reduxState?.name}
+              phno={reduxState?.phoneNumber}
+              mapLocation={getLatLong(reduxState?.mapLocation)}
+              address={reduxState?.address}
+            />
         </aside>
       </div>
     </>

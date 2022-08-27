@@ -5,9 +5,9 @@ function AddReviewCard() {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
-    // if (!localStorage.zomatoUser) {
-    //   return alert("You must be logged in to add a review");
-    // }
+    if (!localStorage.yummelyUser) {
+      return alert("You must be logged in to add a review");
+    }
 
     setIsOpen(true);
   };

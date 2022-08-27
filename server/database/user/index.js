@@ -44,7 +44,7 @@ userSchema.statics.findByEmailAndPhone = async ({email, phoneNumber}) => {
 //arrow function cannot be used for pre
 //normal mongoose process will be carried out after next function is completed
 //async await not required since we are using callbacks
-userModel.pre("save", function (next){
+userSchema.pre("save", function (next){
     const user = this  //data passed inside create
 
     //check if password is modified (whether user has entered password)

@@ -19,8 +19,8 @@ const reviewSchema = new mongoose.Schema({
     isFoodReview: Boolean,
     photos: [
         {
-            type:Mongoose.Types.ObjectId,
-            ref:"Images",
+            type: mongoose.Types.ObjectId,
+            ref: "Images",
         },
     ],
 },

@@ -1,11 +1,13 @@
-import React from 'react';
-import { Routes, Route, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";import { Routes, Route, Navigate } from "react-router-dom";
 
 //HOC
 import HomeLayoutHOC from './HOC/Home.HOC';
 import RestaurantLayoutHOC from './HOC/Restaurant.HOC';
+import CheckoutLayoutHOC from './HOC/Checkout.HOC';
 
-import Temp from './Components/Temp'
+// redux
+import { useDispatch } from "react-redux";
+import { getMySelf } from "./Redux/Reducer/User/user.action";
 
 // Import css files
 import "slick-carousel/slick/slick.css";
@@ -18,18 +20,24 @@ import OrderOnline from './Pages/OrderOnline';
 import Reviews from './Pages/Reviews';
 import Menu from './Pages/Menu';
 import Photos from './Pages/Photos';
-import CheckoutLayoutHOC from './HOC/Checkout.HOC';
 import Checkout from './Pages/Checkout';
+import RestaurantRedirect from './Pages/RestaurantRedirect';
+import GoogleAuth from './Pages/GoogleAuth';
 
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.yummelyUser) dispatch(getMySelf());
+  }, []);
   return (
    <>
    <Routes>
       <Route path="/" element={<Navigate replace to="/delivery" />} />
+      <Route path='/restaurant/:id' exact element={<RestaurantRedirect/>} />
     </Routes>
     <HomeLayoutHOC path='/:type' exact  component={HomePage}/>
-    <RestaurantLayoutHOC path='/restaurant/:id' exact  component={Temp}/>
+    <HomeLayoutHOC path='/google/:token' exact  component={GoogleAuth}/>
     <RestaurantLayoutHOC path='/restaurant/:id/overview' exact  component={Overview}/>
     <RestaurantLayoutHOC path='/restaurant/:id/order-online' exact  component={OrderOnline}/>
     <RestaurantLayoutHOC path='/restaurant/:id/menu' exact  component={Menu}/>

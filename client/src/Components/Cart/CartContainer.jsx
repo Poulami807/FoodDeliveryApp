@@ -8,38 +8,34 @@ import {
 } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import FoodItem from "./FoodItem";
-// import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Redux
-// import { useSelector, useDispatch } from "react-redux";
-// import { getCart } from "../../Redux/Reducer/Cart/cart.action";
-
-// Components
-
-
+import { useSelector } from "react-redux";
+import { getCart } from "../../Redux/Reducer/Cart/cart.action";
 
 function CartSM({ toggle }) {
-  // const history = useHistory();
-//   const reduxState = useSelector((globalStore) => globalStore.cart.cart);
+  const navigate= useNavigate();
+  const reduxState = useSelector((globalStore) => globalStore.cart.cart);
 
-  // const continueToCheckout = () => {
-  //   history.push("/checkout/orders");
-  // };
+  const continueToCheckout = () => {
+   navigate("/checkout/orders");
+  };
 
   return (
     <>
       <div className="md:hidden flex items-center justify-between">
         <div className="flex flex-col items-start">
           <small className="flex items-center gap-1" onClick={toggle}>
-            3 Item <IoMdArrowDropup />{" "}
+          {reduxState.length} <IoMdArrowDropup />{" "}
           </small>
           <h4>
-            ₹300{" "}
+            ₹{reduxState.reduce((acc, curVal) => acc + curVal.totalPrice, 0)}{" "}
             <sub>(plus tax)</sub>
           </h4>
         </div>
         <button
-          // onClick={continueToCheckout}
+          onClick={continueToCheckout}
           className="flex items-center gap-1 bg-zomato-400 px-3 py-1 text-white rounded-lg"
         >
           Continue <IoMdArrowDropright />
@@ -50,12 +46,12 @@ function CartSM({ toggle }) {
 }
 
 function CartLg({ toggle }) {
-  // const history = useHistory();
-  // const reduxState = useSelector((globalStore) => globalStore.cart.cart);
+  const navigate= useNavigate();
+  const reduxState = useSelector((globalStore) => globalStore.cart.cart);
 
-  // const continueToCheckout = () => {
-  //   history.push("/checkout/orders");
-  // };
+  const continueToCheckout = () => {
+   navigate("/checkout/orders");
+  }
   return (
     <>
       <div className="hidden md:flex items-center justify-between container px-20 mx-auto">
@@ -66,15 +62,15 @@ function CartLg({ toggle }) {
           >
             <IoMdArrowDropup />
           </span>
-          <h4>Your Orders (3)</h4>
+          <h4>Your Orders ({reduxState.length})</h4>
         </div>
         <div className="flex items-center gap-2">
           <h4 className="text-xl">
-            Subtotal: ₹300{" "}
+            Subtotal: ₹{reduxState.reduce((acc, curVal) => acc + curVal.totalPrice, 0)}{" "}
             <sub>(plus tax)</sub>
           </h4>
           <button
-            // onClick={continueToCheckout}
+            onClick={continueToCheckout}
             className="flex items-center gap-1 bg-zomato-400 px-3 py-1 text-white rounded-lg"
           >
             Continue <IoMdArrowDropright />
@@ -88,29 +84,31 @@ function CartLg({ toggle }) {
 function CartContainer() {
   const [isOpen, setIsOpen] = useState(false);
   const [cartData, setCartData] = useState();
-  const [foods, setFoods] = useState([
-    {
-        image:"https://b.zmtcdn.com/data/dish_photos/9f9/7286523dde8c65d5e9c126b15bfe29f9.jpg",
-        name: "Chilli Paneer Gravy",
-        price: "157.50",
-        quantity: 4
-    },
-    {
-        image:"https://b.zmtcdn.com/data/dish_photos/9f9/7286523dde8c65d5e9c126b15bfe29f9.jpg",
-        name: "Chilli Paneer Gravy",
-        price: "157.50",
-        quantity: 4
-    }
-  ]);
+  // const [foods, setFoods] = useState([
+  //   {
+  //       image:"https://b.zmtcdn.com/data/dish_photos/9f9/7286523dde8c65d5e9c126b15bfe29f9.jpg",
+  //       name: "Chilli Paneer Gravy",
+  //       price: "157.50",
+  //       quantity: 4
+  //   },
+  //   {
+  //       image:"https://b.zmtcdn.com/data/dish_photos/9f9/7286523dde8c65d5e9c126b15bfe29f9.jpg",
+  //       name: "Chilli Paneer Gravy",
+  //       price: "157.50",
+  //       quantity: 4
+  //   }
+  // ]);
 
-//   const dispatch = useDispatch();
-//   const reduxState = useSelector((globalStore) => globalStore.cart.cart);
+  const [foods, setFoods] = useState([])
+
+  const reduxState = useSelector((globalStore) => globalStore.cart.cart);
 
   const toggleCart = () => setIsOpen((prev) => !prev);
   const closeCart = () => setIsOpen(false);
 
   return (
     <>
+        {reduxState.length && (
         <>
           {isOpen && (
             <div className="fixed w-full overflow-y-scroll h-48 bg-white z-10 p-2 bottom-16 px-3">
@@ -120,7 +118,7 @@ function CartContainer() {
               </div>
               <hr className="my-2" />
               <div className="flex flex-col gap-2 md:px-20">
-                {foods.map((food) => (
+                {reduxState.map((food) => (
                   <FoodItem {...food} key={food._id} />
                 ))}
               </div>
@@ -131,6 +129,7 @@ function CartContainer() {
             <CartLg toggle={toggleCart} />
           </div>
         </>
+        )}
     </>
   );
 }
