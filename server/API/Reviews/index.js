@@ -19,7 +19,7 @@ Method   GET
 Router.get('/:resid',async (req,res)=>{
     try {
         const {resid} = req.params;
-        const reviews = await orderuModel.find({restaurant:resid});
+        const reviews = await reviewModel.find({restaurant:resid});
         return res.json({reviews})
     } catch (error) {
         return res.status(500).json({error:error.message})

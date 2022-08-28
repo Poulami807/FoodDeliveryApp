@@ -135,7 +135,7 @@ function Overview() {
           </div>
           <h4 className="text-lg font-medium my-4">Cuisines</h4>
           <div className="flex flex-wrap gap-2">
-            {reduxState?.cuisines.map((data) => (
+            {reduxState?.cuisine.map((data) => (
               <span className="border border-gray-600 text-gray-600 px-2 py-1 rounded-full">
                 {data}
               </span>

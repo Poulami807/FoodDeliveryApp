@@ -28,6 +28,7 @@ function FoodItem(props) {
     console.log(props);
     dispatch(getFood(props._id)).then((data) => {
       setFood(data.payload.foods);
+      console.log(data.payload.foods)
       dispatch(getImage(data.payload.foods.photos)).then((data) => {
         const { images } = data.payload.image;
         images.length &&

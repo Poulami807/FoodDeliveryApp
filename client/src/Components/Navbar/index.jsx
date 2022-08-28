@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+import logo from "../../logo/Yummely.jpg";
+
 // Icons
 import { FaUserAlt } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
@@ -24,7 +27,7 @@ function MobileNav({user,isDropdownOpen, setIsDropdownOpen,signIn,
           <div className="flex w-full items-center justify-between lg:hidden">
         <div className="w-28">
           <img
-            src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+            src={logo}
             alt="logo"
             className="w-full h-full"
           />
@@ -83,9 +86,10 @@ function LargeScNav({user,isDropdownOpen, setIsDropdownOpen,signIn, signUp}){
         <div className="hidden gap-4 w-full lg:flex items-center justify-around ">
           <div className="w-28 mr-10">
             <img
-              src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+              src={logo}
               alt="logo"
               className="w-full h-full"
+              
             />
           </div>
           <div className="w-3/4 bg-white shadow-md p-3 flex items-center gap-3 border border-gray-200 rounded">

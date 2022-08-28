@@ -19,7 +19,7 @@ Method          GET
 Router.get("/:_id", async (req, res) => {
     try {
       const { _id } = req.params;
-      const foods = await FoodModel.findById(_id);
+      const foods = await foodModel.findById(_id);
       return res.json({ foods });
     } catch (error) {
       return res.status(500).json({ error: error.message });

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const menuSchema = new mongoose.Schema({
     menu:[{
         name:{type:String,required:true},
-        menu:[{
+        items:[{
             type:mongoose.Types.ObjectId,
             ref:"Foods",
         }]

@@ -2,6 +2,9 @@ import React from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
+//logo
+import logo from "../../logo/Yummely.jpg";
+
 // Redux
 import { useSelector } from "react-redux";
 
@@ -16,7 +19,7 @@ function CheckoutNavbar() {
             <div className="flex gap-3">
               <div className="w-28">
                 <img
-                  src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+                  src={logo}
                   alt="logo"
                   className="w-full h-full"
                 />

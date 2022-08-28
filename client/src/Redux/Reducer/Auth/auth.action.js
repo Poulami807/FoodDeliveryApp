@@ -23,6 +23,7 @@ export const signIn = (userData) => async (dispatch) => {
 
     return dispatch({ type: SIGN_IN, payload: User.data });
   } catch (error) {
+    alert(error.response.data.error)
     dispatch({ type: "ERROR", payload: error });
   }
 };
@@ -44,6 +45,7 @@ export const signUp = (userData) => async (dispatch) => {
 
     return dispatch({ type: SIGN_UP, payload: User.data });
   } catch (error) {
+    alert(error.response.data.error)
     dispatch({ type: "ERROR", payload: error });
   }
 };

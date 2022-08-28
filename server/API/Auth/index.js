@@ -49,7 +49,7 @@ Method   POST
 Router.post("/signin",async (req,res)=>{
     try {
         await validateSignin(req.body.credentials); 
-        const user = await userModel.findByEmailAndPassword(re.body.credentials);
+        const user = await userModel.findByEmailAndPassword(req.body.credentials);
         const token = user.generateJwtToken();
         return res.status(200).json({token,status:"Login success"});
 

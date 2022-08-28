@@ -87,7 +87,7 @@ function OrderOnline() {
       if (reduxState) {
         dispatch(getFoodList(reduxState.menu)).then((data) => {
           if (data.payload.menus) {
-            setMenu(data.payload.menus.menus);
+            setMenu(data.payload.menus.menu);
           }
         });
       }

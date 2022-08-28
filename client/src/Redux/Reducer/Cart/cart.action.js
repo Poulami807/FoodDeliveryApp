@@ -56,7 +56,6 @@ import {
       cartData.cart = cartData.cart.filter(({ _id }) => _id !== foodId);
   
       localStorage.setItem("yummelyCart", JSON.stringify({ cart: cartData.cart }));
-  
       return dispatch({ type: DELETE_CART, payload: cartData.cart });
     } catch (error) {
       return dispatch({ type: "ERROR", payload: error });
