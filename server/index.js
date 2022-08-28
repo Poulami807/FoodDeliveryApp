@@ -50,7 +50,8 @@ app.use("/review",Review);
 app.use("/user",User);
 app.use("/payment",Payment);
 
-app.listen(4000,()=>{
+const PORT = process.env.PORT;  
+app.listen(PORT || 4000,()=>{
 connectDB()
 .then(()=>console.log('server is running'))
 .catch(()=>console.log('Server is running but db connection failed'))
