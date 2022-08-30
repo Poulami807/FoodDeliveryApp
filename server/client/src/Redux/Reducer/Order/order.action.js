@@ -7,7 +7,7 @@ export const createOrder = (amount) => async (dispatch) => {
   try {
     const order = await axios({
       method: "POST",
-      url: "http://localhost:4000/payments/new",
+      url: "/payments/new",
       data: { amount },
     });
 
@@ -34,7 +34,7 @@ export const orderPlaced =
         };
         axios({
           method: "POST",
-          url: `http://localhost:4000/order/new`,
+          url: `/order/new`,
           data: { orderDetails },
         });
       });

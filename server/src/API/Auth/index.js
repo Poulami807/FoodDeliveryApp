@@ -87,7 +87,7 @@ Router.get('/google/redirect', passport.authenticate("google",{failureRedirect:'
         //     {token: req.session.passport.user.token}
         // )
         return res.redirect(
-            `http://localhost:3000/google/${req.session.passport.user.token}`
+            `https://poulami807.github.io/yummely-frontend-github/google/${req.session.passport.user.token}`
           );
     }
 )
